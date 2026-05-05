@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XV Años · Valeria Castañeda Estrella</title>
+<meta property="og:title" content="Mis XV Años · Valeria Castañeda Estrella">
+<meta property="og:description" content="Te invito a celebrar el inicio de una nueva etapa — 19 de junio, 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --rose:       #C4708A;
+    --rose-deep:  #A0546E;
+    --rose-light: #E8B4C4;
+    --rose-pale:  #F5E0E8;
+    --gold:       #D4A843;
+    --gold-light: #ECC96A;
+    --gold-pale:  #F7EDD0;
+    --cream:      #FDF8F0;
+    --dark:       #2A1520;
+    --dark-mid:   #4A2535;
+    --text-soft:  #7A4D5E;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--cream);
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── CANVAS FONDO ────────────────────────────────── */
+  .bg-canvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    overflow: hidden;
+    background-image: url('rosas.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-canvas::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(253, 240, 244, 0.55);
+  }
+
+  /* ── CONFETI ────────────────────────────────────── */
+  #confetti-canvas {
+    position: fixed; inset: 0; z-index: 999;
+    pointer-events: none;
+  }
+
+  /* ── WRAP PRINCIPAL ─────────────────────────────── */
+  .page {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2.5rem 1rem;
+  }
+
+  /* ── TARJETA ─────────────────────────────────────── */
+  .card {
+    position: relative;
+    background: rgba(253, 248, 240, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 28px;
+    max-width: 500px;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    box-shadow:
+      0 4px 40px rgba(160, 84, 110, 0.15),
+      0 1px 0 rgba(212, 168, 67, 0.4) inset,
+      0 -1px 0 rgba(212, 168, 67, 0.4) inset;
+  }
+
+  /* Marco exterior ornamental */
+  .card::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 22px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .card::after {
+    content: '';
+    position: absolute; inset: 10px;
+    border: 0.5px solid rgba(196,112,138,0.2);
+    border-radius: 18px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* ── HEADER ROSA ──────────────────────────────────── */
+  .card-header {
+    background: linear-gradient(160deg, #e8b4c4 0%, #d4829a 50%, #c4708a 100%);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-header::after {
+    content: '';
+    position: absolute; bottom: -1px; left: 0; right: 0;
+    height: 30px;
+    background: var(--cream);
+    border-radius: 60% 60% 0 0 / 100% 100% 0 0;
+  }
+
+  /* Rosas SVG en esquinas del header */
+  .header-rose {
+    position: absolute;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .header-rose.tl { top: -10px; left: -10px; width: 100px; transform: rotate(-20deg); }
+  .header-rose.tr { top: -10px; right: -10px; width: 100px; transform: rotate(20deg) scaleX(-1); }
+  .header-rose.bl { bottom: 10px; left: -5px; width: 80px; transform: rotate(30deg); }
+  .header-rose.br { bottom: 10px; right: -5px; width: 80px; transform: rotate(-30deg) scaleX(-1); }
+
+  .xv-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+    animation: fadeDown 0.8s 0.2s both;
+  }
+
+  /* Nombre con shimmer */
+  .name-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 9vw, 48px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.1;
+    display: block;
+    position: relative;
+    animation: fadeDown 0.9s 0.3s both;
+    background: linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 35%,
+      #ffe8b0 50%,
+      #fff 65%,
+      #fff 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeDown 0.9s 0.3s both, shimmer 3s 1.5s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  .name-last {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 4.5vw, 24px);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    display: block;
+    margin-top: 2px;
+    animation: fadeDown 1s 0.4s both;
+  }
+
+  /* ── CUERPO ──────────────────────────────────────── */
+  .card-body {
+    padding: 1.5rem 2rem 2rem;
+    text-align: center;
+  }
+
+  /* Divisores */
+  .divider {
+    display: flex; align-items: center; gap: 10px;
+    margin: 1.1rem auto;
+    width: fit-content;
+  }
+  .div-line {
+    width: 50px; height: 0.5px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .div-line.rev { background: linear-gradient(90deg, var(--gold), transparent); }
+  .div-dot { font-size: 14px; color: var(--gold); }
+
+  /* Texto bienvenida */
+  .blessing {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-soft);
+    letter-spacing: 0.04em;
+    animation: fadeUp 0.8s 0.6s both;
+  }
+  .parents {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--dark-mid);
+    line-height: 1.7;
+    margin-top: 0.3rem;
+    animation: fadeUp 0.8s 0.7s both;
+  }
+  .parents strong { color: var(--rose-deep); font-weight: 500; }
+  .honor {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-soft);
+    line-height: 1.65;
+    animation: fadeUp 0.8s 0.8s both;
+  }
+
+  /* ── DETALLES ─────────────────────────────────────── */
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 1.2rem 0 0.8rem;
+    animation: fadeUp 0.8s 0.9s both;
+  }
+  .detail-card {
+    background: rgba(255,255,255,0.7);
+    border: 0.5px solid rgba(212,168,67,0.25);
+    border-radius: 14px;
+    padding: 0.8rem 0.6rem;
+  }
+  .detail-card.full { grid-column: 1/-1; }
+  .d-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .d-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--dark);
+    line-height: 1.45;
+  }
+  .d-sub {
+    font-size: 13px;
+    color: var(--text-soft);
+    display: block;
+    margin-top: 2px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ── CONTADOR ─────────────────────────────────────── */
+  .countdown-wrap {
+    background: linear-gradient(135deg, rgba(196,112,138,0.08), rgba(212,168,67,0.08));
+    border: 0.5px solid rgba(196,112,138,0.2);
+    border-radius: 16px;
+    padding: 1rem 0.5rem;
+    margin: 0.8rem 0;
+    animation: fadeUp 0.8s 1s both;
+  }
+  .countdown-title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  .cdown-unit {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 50px;
+  }
+  .cdown-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--rose-deep);
+    line-height: 1;
+    min-width: 48px;
+    text-align: center;
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    padding: 4px 2px;
+    border: 0.5px solid rgba(196,112,138,0.2);
+  }
+  .cdown-label {
+    font-size: 8px;
+    color: var(--text-soft);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .cdown-sep {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+    align-self: center;
+    padding-bottom: 8px;
+    opacity: 0.6;
+  }
+  .expired-msg {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--rose-deep);
+    padding: 0.5rem;
+  }
+
+  /* ── PARA QUIEN ──────────────────────────────────── */
+  .guest-block {
+    margin: 0.6rem 0 0.5rem;
+    animation: fadeUp 0.8s 1.1s both;
+  }
+  .guest-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-soft);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .guest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--rose-deep);
+    font-weight: 400;
+    display: block;
+  }
+
+  .deadline {
+    font-size: 14px;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.8s 1.15s both;
+  }
+
+  /* ── CONFIRMACIÓN ────────────────────────────────── */
+  .confirm-box {
+    animation: fadeUp 0.8s 1.2s both;
+  }
+  .confirm-label {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.7rem;
+  }
+  .attendees-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-bottom: 1rem;
+  }
+  .att-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,112,138,0.4);
+    background: rgba(255,255,255,0.8);
+    color: var(--rose-deep);
+    font-size: 20px; font-weight: 300;
+    cursor: pointer;
+    display: flex; align-items:center; justify-content:center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .att-btn:hover { background: var(--rose-pale); border-color: var(--rose); }
+  .att-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--dark);
+    min-width: 44px; text-align: center;
+  }
+  .att-sub { font-size: 10px; color: var(--text-soft); margin-top: -4px; }
+
+  .btn-confirm {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose) 100%);
+    border: none; border-radius: 50px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(160,84,110,0.25);
+    position: relative; overflow: hidden;
+  }
+  .btn-confirm::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.3), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-confirm:hover::before { opacity: 1; }
+  .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(160,84,110,0.3); }
+  .btn-confirm:active { transform: translateY(0); }
+
+  .sent-msg {
+    display: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--rose-deep);
+    padding: 0.8rem;
+  }
+
+  /* ── MAPA ─────────────────────────────────────────── */
+  .map-section {
+    margin: 1.4rem -2rem -2rem;
+    border-top: 0.5px solid rgba(212,168,67,0.2);
+    overflow: hidden;
+    border-radius: 0 0 20px 20px;
+    animation: fadeUp 0.8s 1.3s both;
+  }
+  .map-label {
+    padding: 0.8rem 1.5rem 0.5rem;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.7);
+    display: block;
+    cursor: pointer;
+    user-select: none;
+  }
+  .map-section iframe {
+    width: 100%; height: 200px;
+    border: 0; display: block;
+    filter: sepia(20%) saturate(90%);
+  }
+
+  /* ── PIE ─────────────────────────────────────────── */
+  .footer-note {
+    margin-top: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-soft);
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+    animation: fadeUp 0.8s 1.4s both;
+  }
+
+  /* ── KEYFRAMES ───────────────────────────────────── */
+  @keyframes fadeDown {
+    from { opacity:0; transform: translateY(-15px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(12px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── MOBILE ──────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .card-body { padding: 1.2rem 1.4rem 1.8rem; }
+    .map-section { margin: 1.2rem -1.4rem -1.8rem; }
+    .cdown-num { font-size: 22px; min-width: 40px; }
+    .countdown-grid { gap: 5px; }
+    .cdown-unit { min-width: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fondo con rosas SVG -->
+<div class="bg-canvas" aria-hidden="true"></div>
+
+<!-- Canvas confeti -->
+<canvas id="confetti-canvas"></canvas>
+
+<div class="page">
+  <div class="card">
+
+    <!-- HEADER -->
+    <div class="card-header">
+
+      <span class="xv-label">✦ &nbsp; Mis Quince Años &nbsp; ✦</span>
+      <span class="name-main">Valeria</span>
+      <span class="name-last">Castañeda Estrella</span>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <div class="divider" style="animation: fadeUp 0.7s 0.5s both; opacity:0;">
+        <div class="div-line rev"></div>
+        <span class="div-dot">✦</span>
+        <div class="div-line"></div>
+      </div>
+
+      <p class="blessing">Con la bendición de Dios y el amor de sus padres</p>
+      <p class="parents" style="margin-top:0.4rem;">
+        <strong>Brangello Castañeda</strong> &amp; <strong>Beliza Estrella</strong>
+      </p>
+
+      <div class="divider" style="animation: fadeUp 0.7s 0.75s both; opacity:0;">
+        <div class="div-line rev"></div>
+        <span class="div-dot">✿</span>
+        <div class="div-line"></div>
+      </div>
+
+      <p class="honor">
+        tienen el honor de invitarte a celebrar<br>el inicio de una nueva y hermosa etapa
+      </p>
+
+      <!-- Detalles -->
+      <div class="details-grid">
+        <div class="detail-card">
+          <span class="d-label">Fecha</span>
+          <span class="d-val">19 de Junio<br>2026</span>
+        </div>
+        <div class="detail-card">
+          <span class="d-label">Hora</span>
+          <span class="d-val">7:00 PM</span>
+        </div>
+        <div class="detail-card full">
+          <span class="d-label">Lugar</span>
+          <span class="d-val">La Alameda — Cali, Valle del Cauca</span>
+          <span class="d-sub">Calle 7 No. 27-08, Segundo Piso</span>
+        </div>
+      </div>
+
+      <!-- Contador regresivo -->
+      <div class="countdown-wrap">
+        <span class="countdown-title">✦ &nbsp; Faltan para confirmar (hasta el 11 de junio) &nbsp; ✦</span>
+        <div id="countdown-grid" class="countdown-grid">
+          <div class="cdown-unit">
+            <span class="cdown-num" id="cd-days">--</span>
+            <span class="cdown-label">Días</span>
+          </div>
+          <div class="cdown-sep">:</div>
+          <div class="cdown-unit">
+            <span class="cdown-num" id="cd-hours">--</span>
+            <span class="cdown-label">Horas</span>
+          </div>
+          <div class="cdown-sep">:</div>
+          <div class="cdown-unit">
+            <span class="cdown-num" id="cd-mins">--</span>
+            <span class="cdown-label">Min</span>
+          </div>
+          <div class="cdown-sep">:</div>
+          <div class="cdown-unit">
+            <span class="cdown-num" id="cd-secs">--</span>
+            <span class="cdown-label">Seg</span>
+          </div>
+        </div>
+        <p id="expired-txt" class="expired-msg" style="display:none;">El plazo de confirmación ha vencido ✿</p>
+      </div>
+
+      <!-- Para quien -->
+      <div class="guest-block">
+        <span class="guest-intro">Esta invitación es para ti,</span>
+        <span class="guest-name" id="guest-name-display">Invitado especial</span>
+      </div>
+
+      <div class="divider" style="animation: fadeUp 0.7s 1.1s both; opacity:0;">
+        <div class="div-line rev"></div>
+        <span class="div-dot">✦</span>
+        <div class="div-line"></div>
+      </div>
+
+      <p class="deadline">Confirma antes del <strong style="color:var(--rose-deep);">11 de junio</strong> · 8 días antes del evento</p>
+
+      <!-- Confirmación -->
+      <div class="confirm-box">
+        <span class="confirm-label">¿Cuántas personas asistirán?</span>
+        <div class="attendees-row">
+          <button class="att-btn" onclick="changeCount(-1)" aria-label="Menos">−</button>
+          <div>
+            <div class="att-count" id="count-display">1</div>
+            <div class="att-sub">persona(s)</div>
+          </div>
+          <button class="att-btn" onclick="changeCount(1)" aria-label="Más">+</button>
+        </div>
+        <button class="btn-confirm" id="btn-confirm" onclick="sendConfirmation()">
+          Confirmar asistencia por WhatsApp 🌹
+        </button>
+        <p class="sent-msg" id="sent-msg">¡Gracias! Tu mensaje fue enviado con amor 🌸</p>
+      </div>
+
+      <p class="footer-note">✦ &nbsp; Te esperamos con el corazón abierto &nbsp; ✦</p>
+
+      <!-- Mapa -->
+      <div class="map-section">
+        <span class="map-label" onclick="toggleMap(this)" id="map-toggle">📍 &nbsp; Ver cómo llegar &nbsp; ▾</span>
+        <div id="map-frame" style="display:none; overflow:hidden; border-radius: 0 0 20px 20px;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!4v1778003008444!6m8!1m7!1szaOMEc8bd6sqYYFE8Ll7ww!2m2!1d3.433103350172616!2d-76.53747622291263!3f251.84139089369432!4f1.353444955314643!5f0.4000000000000002"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación del evento">
+          </iframe>
+        </div>
+      </div>
+
+    </div><!-- /card-body -->
+  </div><!-- /card -->
+</div><!-- /page -->
+
+<script>
+/* ─── MAPA TOGGLE ───────────────────────────────── */
+function toggleMap(el) {
+  var frame = document.getElementById('map-frame');
+  var open  = frame.style.display === 'block';
+  frame.style.display = open ? 'none' : 'block';
+  el.textContent = open
+    ? '📍   Ver cómo llegar   ▾'
+    : '📍   Ocultar mapa   ▴';
+}
+
+/* ─── NOMBRE DESDE URL ─────────────────────────── */
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var raw = params.get('para') || params.get('name') || params.get('invitado') || '';
+  if (raw) {
+    var name = decodeURIComponent(raw.replace(/\+/g,' '));
+    var cap  = name.split(' ').map(function(w){
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    }).join(' ');
+    document.getElementById('guest-name-display').textContent = cap;
+  }
+})();
+
+/* ─── CONTADOR REGRESIVO ───────────────────────── */
+(function() {
+  var target = new Date('2026-06-11T23:59:59-05:00').getTime(); // Colombia UTC-5
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+
+  function tick() {
+    var now  = Date.now();
+    var diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown-grid').style.display = 'none';
+      document.getElementById('expired-txt').style.display    = 'block';
+      return;
+    }
+
+    var days  = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins  = Math.floor((diff % 3600000)  / 60000);
+    var secs  = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ─── ASISTENTES ────────────────────────────────── */
+var attendees = 1;
+function changeCount(d) {
+  attendees = Math.max(1, Math.min(10, attendees + d));
+  document.getElementById('count-display').textContent = attendees;
+}
+
+/* ─── WHATSAPP ──────────────────────────────────── */
+function sendConfirmation() {
+  var guest   = document.getElementById('guest-name-display').textContent;
+  var phone   = '573206829011';
+  var msg     = '¡Hola! Confirmo mi asistencia a los XV años de Valeria Castañeda Estrella el 19 de junio de 2026. '
+              + 'Nombre del invitado: ' + guest + '. '
+              + 'Número de asistentes: ' + attendees + ' persona(s). '
+              + '¡Nos vemos en la celebración! 🌹';
+  var url     = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+  document.getElementById('btn-confirm').style.display = 'none';
+  document.getElementById('sent-msg').style.display    = 'block';
+}
+
+/* ─── CONFETI DORADO ────────────────────────────── */
+(function() {
+  var canvas  = document.getElementById('confetti-canvas');
+  var ctx     = canvas.getContext('2d');
+  var W, H;
+  var pieces  = [];
+  var running = true;
+
+  var colors  = [
+    '#D4A843','#ECC96A','#F7EDD0',
+    '#C4708A','#E8B4C4','#F5E0E8',
+    '#ffffff','#B8956A','#E5D08F'
+  ];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function Piece() {
+    this.x    = Math.random() * W;
+    this.y    = -10 - Math.random() * 40;
+    this.w    = 4 + Math.random() * 7;
+    this.h    = 3 + Math.random() * 5;
+    this.color= colors[Math.floor(Math.random() * colors.length)];
+    this.vy   = 1.5 + Math.random() * 3;
+    this.vx   = -1 + Math.random() * 2;
+    this.rot  = Math.random() * Math.PI * 2;
+    this.rotV = (Math.random() - 0.5) * 0.15;
+    this.life = 1;
+    this.shape= Math.random() > 0.5 ? 'rect' : 'circle';
+  }
+
+  Piece.prototype.update = function() {
+    this.y   += this.vy;
+    this.x   += this.vx;
+    this.rot += this.rotV;
+    if (this.y > H + 20) this.life = 0;
+  };
+
+  Piece.prototype.draw = function() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = 0.85;
+    if (this.shape === 'rect') {
+      ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+    } else {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.w/2, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.restore();
+  };
+
+  var total    = 180;
+  var spawned  = 0;
+  var spawnInt = null;
+
+  function spawn() {
+    if (spawned < total) {
+      var burst = Math.min(6, total - spawned);
+      for (var i = 0; i < burst; i++) pieces.push(new Piece());
+      spawned += burst;
+    } else {
+      clearInterval(spawnInt);
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    pieces = pieces.filter(function(p){ return p.life > 0; });
+    pieces.forEach(function(p){ p.update(); p.draw(); });
+    if (pieces.length > 0 || spawned < total) {
+      requestAnimationFrame(loop);
+    } else {
+      canvas.style.display = 'none';
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  spawnInt = setInterval(spawn, 40);
+  loop();
+})();
+</script>
+</body>
+</html>
